@@ -1,0 +1,6 @@
+@DbUndervisning_HostAddress = http://localhost:5110
+
+GET {{DbUndervisning_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
