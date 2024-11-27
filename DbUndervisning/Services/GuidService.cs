@@ -1,6 +1,7 @@
 ﻿using DbUndervisning.Context;
 using DbUndervisning.Model;
 using DbUndervisning.Model.Abilities;
+using DbUndervisning.Model.Account;
 using DbUndervisning.Model.NPCStuff;
 using DbUndervisning.Model.Quests;
 using DbUndervisning.Services.Interfaces;
@@ -26,10 +27,26 @@ namespace DbUndervisning.Services
 			);
 		}
 
+		public async Task<List<Guid>> GetCharacterItemsByCharacterId(Guid characterId)
+		{
+			return await Task.FromResult(await _asyncRepository.GetAllForColumnStruct<Character, Guid>(
+				q => q.Where(i => i.Id == characterId)
+				.Include(i => i.Items)
+				.SelectMany(o => o.Items
+				.Select(i => i.Id)))
+				);
+		}
+
+		public async Task<Guid> GetQuestItemByQuestId(Guid questId)
+		{
+			var id = await _asyncRepository.GetAllForColumnStruct<Quest, Guid>(q => q.Where(i => i.Id == questId).Include(i => i.ItemToCreate).Select(o => o.ItemToCreate.Id));
+			return await Task.FromResult(id.FirstOrDefault());
+		}
+
 
 		public async Task<List<Guid>> GetMobAbilityIdsByMobId(Guid mobId)
 		{
-			return await Task.FromResult(await _asyncRepository.GetAllForColumnStruct<MobAbility, Guid>(q => q.Where(i => i.Id == mobId).Select(i => i.Id)));
+			return await Task.FromResult(await _asyncRepository.GetAllForColumnStruct<Mob, Guid>(q => q.Where(i => i.Id == mobId).SelectMany(i => i.Abilities).Select(i => i.Id)));
 		}
 
 		public async Task<List<Guid>> GetMobIdsByRegionId(Guid regionId)

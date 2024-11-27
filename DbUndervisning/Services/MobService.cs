@@ -14,7 +14,15 @@ namespace DbUndervisning.Services
 		{
 			return await _asyncRepository.GetItem<Mob>(q=> q.Where(i=> i.Id == id).Include(i => i.Abilities));
 		}
-		public async Task<List<MobAbility>> GetMobsAbilitiesById(Guid mobId)
+
+		public async Task<List<MobAbility>> GetMobsAbilitiesById(Guid id)
+		{
+			var abilities = await _asyncRepository.GetAllItems<MobAbility>(q => q.Where(x => x.Id == id));
+
+			return abilities ?? new List<MobAbility>();
+		}
+
+		public async Task<List<MobAbility>> GetMobsAbilitiesByMobId(Guid mobId)
 		{
 			var abilities = await _asyncRepository.GetAllItems<MobAbility>(q => q.Where(x => x.MobId == mobId));
 

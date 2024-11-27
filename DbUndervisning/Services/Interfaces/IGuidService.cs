@@ -9,7 +9,8 @@
 		public Task<List<Guid>> GetQuestIdsFromHumanoidId(Guid humanoidId);
 		public Task<List<Guid>> GetMobAbilityIdsByMobId(Guid mobId);
 		public Task<List<Guid>> GetHumanoidAbilityIdsByHumanoidId(Guid humanoidId);
-		
+		public Task<List<Guid>> GetCharacterItemsByCharacterId(Guid characterId);
+		public Task<Guid> GetQuestItemByQuestId(Guid questId);
 
 	}
 }

@@ -20,14 +20,14 @@ namespace DbUndervisning.Services
 	
 		public async Task<World> GetWorld()
 		{
-			return await _asyncRepository.GetItem<World>(q => q.Where(x => x.Id != null).Include(r => r.Regions).ThenInclude(e => e.Mobs).ThenInclude(e => e.Abilities).Include(r => r.Regions).ThenInclude(r => r.Humanoids).ThenInclude(a => a.Abilities)
+			return await _asyncRepository.GetItem<World>(q => q.Where(x => x.Name == "Kandarin").Include(r => r.Regions).ThenInclude(e => e.Mobs).ThenInclude(e => e.Abilities).Include(r => r.Regions).ThenInclude(r => r.Humanoids).ThenInclude(a => a.Abilities)
 			.Include(r => r.Regions).ThenInclude(h => h.Humanoids).ThenInclude(q => q.Quest).ThenInclude(e => e.ItemToCreate)
 			.Include(r => r.Regions).ThenInclude(h => h.Humanoids).ThenInclude(q => q.Quest).ThenInclude(e => e.Reward));
 		}
 
 		public async Task<World> GetWorldById(Guid id)
 		{
-			return await _asyncRepository.GetItem<World>(q => q.Where(x => x.Id == id));
+			return await _asyncRepository.GetItem<World>(q => q.Where(x => x.Id == id).Include(r => r.Regions));
 		}
 
 		public async Task<World> GetWorldByName(string name)

@@ -10,13 +10,13 @@ namespace DbUndervisning.Controllers
 	public class RegionController(IRegionService _regionService) : ControllerBase
 	{
 
-		[HttpGet("region/world/{worldId}")]
+		[HttpGet("world/{worldId}")]
 		public async Task<Region> GetRegionByWorldId(Guid worldId)
 		{
 			return await Task.FromResult(await _regionService.GetRegionByWorldId(worldId));
 		}
 
-		[HttpGet("region/{id}")]
+		[HttpGet("byId/{id}")]
 		public async Task<Region> GetRegionById(Guid id)
 		{
 			return await Task.FromResult(await _regionService.GetRegionById(id));

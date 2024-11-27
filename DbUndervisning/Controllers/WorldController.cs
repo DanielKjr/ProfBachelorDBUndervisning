@@ -10,6 +10,8 @@ using System.Collections.Generic;
 
 namespace DbUndervisning.Controllers
 {
+	[ApiController]
+	[Route("[controller]")]
     public class WorldController(IWorldService _worldService) : ControllerBase
 	{
 
