@@ -28,7 +28,7 @@ namespace DbUndervisning.Model.Account
 		[Required]
 		public string Position { get; set; }
 		public List<Quest> CompletedQuests { get; set; } = new List<Quest>();
-		public List<CharacterAbility> Abilities { get; set; } = new List<CharacterAbility>();
+		public List<Ability> Abilities { get; set; } = new List<Ability>();
 
 		public List<Item> Items { get; set; } = new List<Item>();
 	}

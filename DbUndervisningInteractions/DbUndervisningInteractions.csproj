@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DbUndervisning\DbUndervisning.csproj" />
+    <ProjectReference Include="..\MultiPlayerDb\MultiPlayerDb.csproj" />
   </ItemGroup>
 
 </Project>

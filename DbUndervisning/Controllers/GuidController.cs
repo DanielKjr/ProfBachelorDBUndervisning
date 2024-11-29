@@ -21,30 +21,30 @@ namespace DbUndervisning.Controllers
 			return await Task.FromResult(await _guidService.GetRegionIdsById(worldId));
 		}
 
-		[HttpGet("mobId/{regionId}")]
-		public async Task<List<Guid>> GetMobIdsByRegionId(Guid regionId)
-		{
-			return await Task.FromResult(await _guidService.GetMobIdsByRegionId(regionId));
-		}
+		//[HttpGet("mobId/{regionId}")]
+		//public async Task<List<Guid>> GetMobIdsByRegionId(Guid regionId)
+		//{
+		//	return await Task.FromResult(await _guidService.GetMobIdsByRegionId(regionId));
+		//}
 
-		[HttpGet("mobAbilitiesById/{mobId}")]
-		public async Task<List<Guid>> GetMobAbilitiesById(Guid mobId)
-		{
-			return await Task.FromResult(await _guidService.GetMobAbilityIdsByMobId(mobId));
-		}
+		//[HttpGet("mobAbilitiesById/{mobId}")]
+		//public async Task<List<Guid>> GetMobAbilitiesById(Guid mobId)
+		//{
+		//	return await Task.FromResult(await _guidService.GetMobAbilityIdsByMobId(mobId));
+		//}
 
-		[HttpGet("humanoidId/{regionId}")]
-		public async Task<List<Guid>> GetHumanoidsById(Guid regionId)
-		{
-			return await Task.FromResult(await _guidService.GetHumanoidIdsByRegionId(regionId));
-		}
+		//[HttpGet("humanoidId/{regionId}")]
+		//public async Task<List<Guid>> GetHumanoidsById(Guid regionId)
+		//{
+		//	return await Task.FromResult(await _guidService.GetHumanoidIdsByRegionId(regionId));
+		//}
 
 
-		[HttpGet("humanoidAbility/{humanoidId}")]
-		public async Task<List<Guid>> GetHumanoidAbilitiesById(Guid humanoidId)
-		{
-			return await Task.FromResult(await _guidService.GetHumanoidAbilityIdsByHumanoidId(humanoidId));
-		}
+		//[HttpGet("humanoidAbilities/{humanoidId}")]
+		//public async Task<List<Guid>> GetHumanoidAbilitiesById(Guid humanoidId)
+		//{
+		//	return await Task.FromResult(await _guidService.GetHumanoidAbilityIdsByHumanoidId(humanoidId));
+		//}
 
 		[HttpGet("characterItems/{characterId}")]
 		public async Task<List<Guid>> GetCharacterItemsById(Guid characterId)

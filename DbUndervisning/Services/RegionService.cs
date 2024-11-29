@@ -17,7 +17,7 @@ namespace DbUndervisning.Services
 
 		public async Task<Region> GetRegionByWorldId(Guid id)
 		{
-			return await _asyncRepository.GetItem<Region>(q => q.Where(x => x.WorldId == id).Include(m => m.Mobs).Include(h => h.Humanoids));
+			return await _asyncRepository.GetItem<Region>(q => q.Where(x => x.WorldId == id).Include(m => m.NPCS));
 		}
 
 		public async void DeleteRegionById(Guid id)

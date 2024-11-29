@@ -9,15 +9,13 @@ namespace DbUndervisning.Services
 		public static IQueryable<Region> IncludeRegionRelations(this IQueryable<Region> query)
 		{
 			return query
-				.Include(e => e.Mobs)
+				.Include(e => e.NPCS)
 					.ThenInclude(e => e.Abilities)
-				.Include(r => r.Humanoids)
-					.ThenInclude(a => a.Abilities)
-				.Include(h => h.Humanoids)
-					.ThenInclude(q => q.Quest)
+					.Include(e => e.NPCS)
+					.ThenInclude(e => e.Quest)
 						.ThenInclude(e => e.ItemToCreate)
 							.ThenInclude(e => e.Stats)
-				.Include(h => h.Humanoids)
+							.Include(e => e.NPCS)
 					.ThenInclude(q => q.Quest)
 						.ThenInclude(e => e.Reward);
 		}
@@ -25,18 +23,18 @@ namespace DbUndervisning.Services
 		public static IQueryable<World> IncludeAll(this IQueryable<World> query)
 		{
 			return query.Include(r => r.Regions)
-				.ThenInclude(e => e.Mobs)
+				.ThenInclude(e => e.NPCS)
 					.ThenInclude(e => e.Abilities)
 				.Include(r => r.Regions)
-					.ThenInclude(r => r.Humanoids)
+					.ThenInclude(r => r.NPCS)
 						.ThenInclude(a => a.Abilities)
 				.Include(r => r.Regions)
-					.ThenInclude(h => h.Humanoids)
+					.ThenInclude(h => h.NPCS)
 						.ThenInclude(q => q.Quest)
 							.ThenInclude(e => e.ItemToCreate)
 								.ThenInclude(u => u.Stats)
 				.Include(r => r.Regions)
-					.ThenInclude(h => h.Humanoids)
+					.ThenInclude(h => h.NPCS)
 						.ThenInclude(q => q.Quest)
 							.ThenInclude(e => e.Reward);
 		}

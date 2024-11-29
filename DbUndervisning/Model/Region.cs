@@ -29,8 +29,9 @@ namespace DbUndervisning.Model
 		[Comment("placeholder siden jeg ikke har noget reelt asset")]
 		public string Asset { get; set; } = string.Empty;
 
-		public List<Mob> Mobs { get; set; } = new List<Mob>();
-		public List<Humanoid> Humanoids { get; set; } = new List<Humanoid>();
+		public List<NPC> NPCS { get; set; } = new List<NPC>();
+		//public List<Mob> Mobs { get; set; } = new List<Mob>();
+		//public List<Humanoid> Humanoids { get; set; } = new List<Humanoid>();
 
 		//public List<NPC> NPCs { get; set; } = new List<NPC>();
 	}

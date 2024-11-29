@@ -1,99 +1,54 @@
 
-info: 27/11/2024 10.13.30.846 RelationalEventId.CommandExecuted[20101] (Microsoft.EntityFrameworkCore.Database.Command) 
-      Executed DbCommand (26ms) [Parameters=[@__name_0='?' (Size = 25)], CommandType='Text', CommandTimeout='30']
-      SELECT [w].[Id]
-      FROM [DbUndervisningProject].[Worlds] AS [w]
-      WHERE [w].[Name] = @__name_0
+warn: 28/11/2024 12.38.08.370 CoreEventId.SensitiveDataLoggingEnabledWarning[10400] (Microsoft.EntityFrameworkCore.Infrastructure) 
+      Sensitive data logging is enabled. Log entries and exception messages may include sensitive application data; this mode should only be enabled during development.
 
-info: 27/11/2024 10.13.30.942 RelationalEventId.CommandExecuted[20101] (Microsoft.EntityFrameworkCore.Database.Command) 
-      Executed DbCommand (3ms) [Parameters=[@__worldId_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
-      SELECT [r].[Id]
-      FROM [DbUndervisningProject].[Regions] AS [r]
-      WHERE [r].[WorldId] = @__worldId_0
+info: 28/11/2024 12.38.08.758 RelationalEventId.CommandExecuted[20101] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Executed DbCommand (14ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT 1
 
-info: 27/11/2024 10.13.31.010 RelationalEventId.CommandExecuted[20101] (Microsoft.EntityFrameworkCore.Database.Command) 
-      Executed DbCommand (2ms) [Parameters=[@__regionId_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
-      SELECT [m].[Id]
-      FROM [DbUndervisningProject].[Regions] AS [r]
-      INNER JOIN [DbUndervisningProject].[Mobs] AS [m] ON [r].[Id] = [m].[RegionId]
-      WHERE [r].[Id] = @__regionId_0
+info: 28/11/2024 12.38.08.771 RelationalEventId.AcquiringMigrationLock[20411] (Microsoft.EntityFrameworkCore.Migrations) 
+      Acquiring an exclusive lock for migration application. See https://aka.ms/efcore-docs-migrations-lock for more information if this takes too long.
 
-info: 27/11/2024 10.13.31.029 RelationalEventId.CommandExecuted[20101] (Microsoft.EntityFrameworkCore.Database.Command) 
-      Executed DbCommand (2ms) [Parameters=[@__mobId_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
-      SELECT [m0].[Id]
-      FROM [DbUndervisningProject].[Mobs] AS [m]
-      INNER JOIN [DbUndervisningProject].[MobAbilities] AS [m0] ON [m].[Id] = [m0].[MobId]
-      WHERE [m].[Id] = @__mobId_0
+info: 28/11/2024 12.38.08.783 RelationalEventId.CommandExecuted[20101] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Executed DbCommand (9ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      DECLARE @result int;
+      EXEC @result = sp_getapplock @Resource = '__EFMigrationsLock', @LockOwner = 'Session', @LockMode = 'Exclusive';
+      SELECT @result
 
-info: 27/11/2024 10.13.32.461 RelationalEventId.CommandExecuted[20101] (Microsoft.EntityFrameworkCore.Database.Command) 
-      Executed DbCommand (2ms) [Parameters=[@__id_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
-      SELECT [w0].[Id], [w0].[Name], [r].[Id], [r].[Asset], [r].[Description], [r].[Name], [r].[Size], [r].[WorldId]
-      FROM (
-          SELECT TOP(1) [w].[Id], [w].[Name]
-          FROM [DbUndervisningProject].[Worlds] AS [w]
-          WHERE [w].[Id] = @__id_0
-      ) AS [w0]
-      LEFT JOIN [DbUndervisningProject].[Regions] AS [r] ON [w0].[Id] = [r].[WorldId]
-      ORDER BY [w0].[Id]
+info: 28/11/2024 12.38.08.829 RelationalEventId.CommandExecuted[20101] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      IF OBJECT_ID(N'[__EFMigrationsHistory]') IS NULL
+      BEGIN
+          CREATE TABLE [__EFMigrationsHistory] (
+              [MigrationId] nvarchar(150) NOT NULL,
+              [ProductVersion] nvarchar(32) NOT NULL,
+              CONSTRAINT [PK___EFMigrationsHistory] PRIMARY KEY ([MigrationId])
+          );
+      END;
 
-warn: 27/11/2024 10.13.32.757 RelationalEventId.MultipleCollectionIncludeWarning[20504] (Microsoft.EntityFrameworkCore.Query) 
-      Compiling a query which loads related collections for more than one collection navigation, either via 'Include' or through projection, but no 'QuerySplittingBehavior' has been configured. By default, Entity Framework will use 'QuerySplittingBehavior.SingleQuery', which can potentially result in slow query performance. See https://go.microsoft.com/fwlink/?linkid=2134277 for more information. To identify the query that's triggering this warning call 'ConfigureWarnings(w => w.Throw(RelationalEventId.MultipleCollectionIncludeWarning))'.
+info: 28/11/2024 12.38.08.836 RelationalEventId.CommandExecuted[20101] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT 1
 
-info: 27/11/2024 10.13.32.768 RelationalEventId.CommandExecuted[20101] (Microsoft.EntityFrameworkCore.Database.Command) 
-      Executed DbCommand (3ms) [Parameters=[@__id_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
-      SELECT [r0].[Id], [r0].[Asset], [r0].[Description], [r0].[Name], [r0].[Size], [r0].[WorldId], [m].[Id], [m].[Attackable], [m].[Behavior], [m].[Class], [m].[Health], [m].[Level], [m].[Name], [m].[Position], [m].[Texture], [m].[RegionId], [h].[Id], [h].[Attackable], [h].[Behavior], [h].[Class], [h].[Health], [h].[Level], [h].[Name], [h].[Position], [h].[Texture], [h].[RegionId]
-      FROM (
-          SELECT TOP(1) [r].[Id], [r].[Asset], [r].[Description], [r].[Name], [r].[Size], [r].[WorldId]
-          FROM [DbUndervisningProject].[Regions] AS [r]
-          WHERE [r].[WorldId] = @__id_0
-      ) AS [r0]
-      LEFT JOIN [DbUndervisningProject].[Mobs] AS [m] ON [r0].[Id] = [m].[RegionId]
-      LEFT JOIN [DbUndervisningProject].[Humanoids] AS [h] ON [r0].[Id] = [h].[RegionId]
-      ORDER BY [r0].[Id], [m].[Id]
+info: 28/11/2024 12.38.08.838 RelationalEventId.CommandExecuted[20101] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
 
-info: 27/11/2024 10.13.32.839 RelationalEventId.CommandExecuted[20101] (Microsoft.EntityFrameworkCore.Database.Command) 
-      Executed DbCommand (2ms) [Parameters=[@__id_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
-      SELECT [m1].[Id], [m1].[Attackable], [m1].[Behavior], [m1].[Class], [m1].[Health], [m1].[Level], [m1].[Name], [m1].[Position], [m1].[Texture], [m1].[RegionId], [m0].[Id], [m0].[ClassConstraint], [m0].[Damage], [m0].[Description], [m0].[Name], [m0].[MobId]
-      FROM (
-          SELECT TOP(1) [m].[Id], [m].[Attackable], [m].[Behavior], [m].[Class], [m].[Health], [m].[Level], [m].[Name], [m].[Position], [m].[Texture], [m].[RegionId]
-          FROM [DbUndervisningProject].[Mobs] AS [m]
-          WHERE [m].[Id] = @__id_0
-      ) AS [m1]
-      LEFT JOIN [DbUndervisningProject].[MobAbilities] AS [m0] ON [m1].[Id] = [m0].[MobId]
-      ORDER BY [m1].[Id]
+info: 28/11/2024 12.38.08.840 RelationalEventId.CommandExecuted[20101] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT [MigrationId], [ProductVersion]
+      FROM [__EFMigrationsHistory]
+      ORDER BY [MigrationId];
 
-info: 27/11/2024 10.13.32.886 RelationalEventId.CommandExecuted[20101] (Microsoft.EntityFrameworkCore.Database.Command) 
-      Executed DbCommand (1ms) [Parameters=[@__id_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
-      SELECT [m].[Id], [m].[ClassConstraint], [m].[Damage], [m].[Description], [m].[Name], [m].[MobId]
-      FROM [DbUndervisningProject].[MobAbilities] AS [m]
-      WHERE [m].[Id] = @__id_0
+info: 28/11/2024 12.38.08.850 RelationalEventId.MigrationApplying[20402] (Microsoft.EntityFrameworkCore.Migrations) 
+      Applying migration '20241128112155_1'.
 
-warn: 27/11/2024 10.13.34.681 RelationalEventId.MultipleCollectionIncludeWarning[20504] (Microsoft.EntityFrameworkCore.Query) 
-      Compiling a query which loads related collections for more than one collection navigation, either via 'Include' or through projection, but no 'QuerySplittingBehavior' has been configured. By default, Entity Framework will use 'QuerySplittingBehavior.SingleQuery', which can potentially result in slow query performance. See https://go.microsoft.com/fwlink/?linkid=2134277 for more information. To identify the query that's triggering this warning call 'ConfigureWarnings(w => w.Throw(RelationalEventId.MultipleCollectionIncludeWarning))'.
+fail: 28/11/2024 12.38.08.878 RelationalEventId.CommandError[20102] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Failed executing DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      ALTER TABLE [DbUndervisningProject].[Abilities] DROP CONSTRAINT [FK_Abilities_NPCs_NPCId];
 
-info: 27/11/2024 10.13.34.712 RelationalEventId.CommandExecuted[20101] (Microsoft.EntityFrameworkCore.Database.Command) 
-      Executed DbCommand (18ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
-      SELECT [w0].[Id], [w0].[Name], [s1].[Id], [s1].[Asset], [s1].[Description], [s1].[Name], [s1].[Size], [s1].[WorldId], [s1].[Id0], [s1].[Attackable], [s1].[Behavior], [s1].[Class], [s1].[Health], [s1].[Level], [s1].[Name0], [s1].[Position], [s1].[Texture], [s1].[RegionId], [s1].[Id00], [s1].[ClassConstraint], [s1].[Damage], [s1].[Description0], [s1].[Name00], [s1].[MobId], [s1].[Id1], [s1].[Attackable0], [s1].[Behavior0], [s1].[Class0], [s1].[Health0], [s1].[Level0], [s1].[Name1], [s1].[Position0], [s1].[Texture0], [s1].[RegionId0], [s1].[Id01], [s1].[Id10], [s1].[Id2], [s1].[Id3], [s1].[ClassConstraint0], [s1].[Damage0], [s1].[Description1], [s1].[Name01], [s1].[HumanoidId], [s1].[CharacterId], [s1].[Dialogue], [s1].[HumanoidId0], [s1].[ItemToCreateId], [s1].[Objective], [s1].[Title], [s1].[CharacterId0], [s1].[Description00], [s1].[Name10], [s1].[Rarity], [s1].[Texture00], [s1].[Currency], [s1].[Experience], [s1].[QuestId]
-      FROM (
-          SELECT TOP(1) [w].[Id], [w].[Name]
-          FROM [DbUndervisningProject].[Worlds] AS [w]
-          WHERE [w].[Name] = N'Kandarin'
-      ) AS [w0]
-      LEFT JOIN (
-          SELECT [r].[Id], [r].[Asset], [r].[Description], [r].[Name], [r].[Size], [r].[WorldId], [s].[Id] AS [Id0], [s].[Attackable], [s].[Behavior], [s].[Class], [s].[Health], [s].[Level], [s].[Name] AS [Name0], [s].[Position], [s].[Texture], [s].[RegionId], [s].[Id0] AS [Id00], [s].[ClassConstraint], [s].[Damage], [s].[Description] AS [Description0], [s].[Name0] AS [Name00], [s].[MobId], [s0].[Id] AS [Id1], [s0].[Attackable] AS [Attackable0], [s0].[Behavior] AS [Behavior0], [s0].[Class] AS [Class0], [s0].[Health] AS [Health0], [s0].[Level] AS [Level0], [s0].[Name] AS [Name1], [s0].[Position] AS [Position0], [s0].[Texture] AS [Texture0], [s0].[RegionId] AS [RegionId0], [s0].[Id0] AS [Id01], [s0].[Id1] AS [Id10], [s0].[Id2], [s0].[Id3], [s0].[ClassConstraint] AS [ClassConstraint0], [s0].[Damage] AS [Damage0], [s0].[Description] AS [Description1], [s0].[Name0] AS [Name01], [s0].[HumanoidId], [s0].[CharacterId], [s0].[Dialogue], [s0].[HumanoidId0], [s0].[ItemToCreateId], [s0].[Objective], [s0].[Title], [s0].[CharacterId0], [s0].[Description0] AS [Description00], [s0].[Name1] AS [Name10], [s0].[Rarity], [s0].[Texture0] AS [Texture00], [s0].[Currency], [s0].[Experience], [s0].[QuestId]
-          FROM [DbUndervisningProject].[Regions] AS [r]
-          LEFT JOIN (
-              SELECT [m].[Id], [m].[Attackable], [m].[Behavior], [m].[Class], [m].[Health], [m].[Level], [m].[Name], [m].[Position], [m].[Texture], [m].[RegionId], [m0].[Id] AS [Id0], [m0].[ClassConstraint], [m0].[Damage], [m0].[Description], [m0].[Name] AS [Name0], [m0].[MobId]
-              FROM [DbUndervisningProject].[Mobs] AS [m]
-              LEFT JOIN [DbUndervisningProject].[MobAbilities] AS [m0] ON [m].[Id] = [m0].[MobId]
-          ) AS [s] ON [r].[Id] = [s].[RegionId]
-          LEFT JOIN (
-              SELECT [h].[Id], [h].[Attackable], [h].[Behavior], [h].[Class], [h].[Health], [h].[Level], [h].[Name], [h].[Position], [h].[Texture], [h].[RegionId], [q].[Id] AS [Id0], [i].[Id] AS [Id1], [r0].[Id] AS [Id2], [h0].[Id] AS [Id3], [h0].[ClassConstraint], [h0].[Damage], [h0].[Description], [h0].[Name] AS [Name0], [h0].[HumanoidId], [q].[CharacterId], [q].[Dialogue], [q].[HumanoidId] AS [HumanoidId0], [q].[ItemToCreateId], [q].[Objective], [q].[Title], [i].[CharacterId] AS [CharacterId0], [i].[Description] AS [Description0], [i].[Name] AS [Name1], [i].[Rarity], [i].[Texture] AS [Texture0], [r0].[Currency], [r0].[Experience], [r0].[QuestId]
-              FROM [DbUndervisningProject].[Humanoids] AS [h]
-              LEFT JOIN [DbUndervisningProject].[Quests] AS [q] ON [h].[Id] = [q].[HumanoidId]
-              LEFT JOIN [DbUndervisningProject].[Items] AS [i] ON [q].[ItemToCreateId] = [i].[Id]
-              LEFT JOIN [DbUndervisningProject].[Rewards] AS [r0] ON [q].[Id] = [r0].[QuestId]
-              LEFT JOIN [DbUndervisningProject].[HumanoidAbilities] AS [h0] ON [h].[Id] = [h0].[HumanoidId]
-          ) AS [s0] ON [r].[Id] = [s0].[RegionId]
-      ) AS [s1] ON [w0].[Id] = [s1].[WorldId]
-      ORDER BY [w0].[Id], [s1].[Id], [s1].[Id0], [s1].[Id00], [s1].[Id1], [s1].[Id01], [s1].[Id10], [s1].[Id2]
+info: 28/11/2024 12.38.08.883 RelationalEventId.CommandExecuted[20101] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      DECLARE @result int;
+      EXEC @result = sp_releaseapplock @Resource = '__EFMigrationsLock', @LockOwner = 'Session';
+      SELECT @result

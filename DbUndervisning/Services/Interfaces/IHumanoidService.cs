@@ -6,8 +6,8 @@ namespace DbUndervisning.Services.Interfaces
 {
 	public interface IHumanoidService
 	{
-		Task<Humanoid> GetHumanoidById(Guid id);
-		Task<List<HumanoidAbility>> GetHumanoidAbilitiesById(Guid id);
-		Task<List<Quest>> GetQuestByHumanoidId(Guid id);
+		//Task<Humanoid> GetHumanoidById(Guid id);
+		//Task<List<HumanoidAbility>> GetHumanoidAbilitiesById(Guid id);
+		Task<Quest> GetQuestByHumanoidId(Guid id);
 	}
 }

@@ -28,6 +28,9 @@ namespace DbUndervisning.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid?>("CharacterId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("ClassConstraint")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -40,6 +43,9 @@ namespace DbUndervisning.Migrations
                         .HasMaxLength(150)
                         .HasColumnType("nvarchar(150)");
 
+                    b.Property<Guid>("NPCId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(25)
@@ -47,9 +53,11 @@ namespace DbUndervisning.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable((string)null);
+                    b.HasIndex("CharacterId");
 
-                    b.UseTpcMappingStrategy();
+                    b.HasIndex("NPCId");
+
+                    b.ToTable("Abilities", "DbUndervisningProject");
                 });
 
             modelBuilder.Entity("DbUndervisning.Model.Account.Character", b =>
@@ -82,30 +90,7 @@ namespace DbUndervisning.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PlayerId");
-
                     b.ToTable("Characters", "DbUndervisningProject");
-                });
-
-            modelBuilder.Entity("DbUndervisning.Model.Account.Player", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("HashedPw")
-                        .IsRequired()
-                        .HasMaxLength(40)
-                        .HasColumnType("nvarchar(40)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(25)
-                        .HasColumnType("nvarchar(25)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Players", "DbUndervisningProject");
                 });
 
             modelBuilder.Entity("DbUndervisning.Model.Item", b =>
@@ -174,15 +159,18 @@ namespace DbUndervisning.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid?>("RegionId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("Texture")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.ToTable((string)null);
+                    b.HasIndex("RegionId");
 
-                    b.UseTpcMappingStrategy();
+                    b.ToTable("NPCs", "DbUndervisningProject");
                 });
 
             modelBuilder.Entity("DbUndervisning.Model.Quests.Quest", b =>
@@ -198,10 +186,10 @@ namespace DbUndervisning.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("HumanoidId")
+                    b.Property<Guid?>("ItemToCreateId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("ItemToCreateId")
+                    b.Property<Guid>("NPCId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Objective")
@@ -216,10 +204,10 @@ namespace DbUndervisning.Migrations
 
                     b.HasIndex("CharacterId");
 
-                    b.HasIndex("HumanoidId")
-                        .IsUnique();
-
                     b.HasIndex("ItemToCreateId");
+
+                    b.HasIndex("NPCId")
+                        .IsUnique();
 
                     b.ToTable("Quests", "DbUndervisningProject");
                 });
@@ -331,73 +319,19 @@ namespace DbUndervisning.Migrations
                     b.ToTable("Worlds", "DbUndervisningProject");
                 });
 
-            modelBuilder.Entity("DbUndervisning.Model.Abilities.CharacterAbility", b =>
+            modelBuilder.Entity("DbUndervisning.Model.Abilities.Ability", b =>
                 {
-                    b.HasBaseType("DbUndervisning.Model.Abilities.Ability");
+                    b.HasOne("DbUndervisning.Model.Account.Character", null)
+                        .WithMany("Abilities")
+                        .HasForeignKey("CharacterId");
 
-                    b.Property<Guid>("CharacterId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasIndex("CharacterId");
-
-                    b.ToTable("CharacterAbilities", "DbUndervisningProject");
-                });
-
-            modelBuilder.Entity("DbUndervisning.Model.Abilities.HumanoidAbility", b =>
-                {
-                    b.HasBaseType("DbUndervisning.Model.Abilities.Ability");
-
-                    b.Property<Guid>("HumanoidId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasIndex("HumanoidId");
-
-                    b.ToTable("HumanoidAbilities", "DbUndervisningProject");
-                });
-
-            modelBuilder.Entity("DbUndervisning.Model.Abilities.MobAbility", b =>
-                {
-                    b.HasBaseType("DbUndervisning.Model.Abilities.Ability");
-
-                    b.Property<Guid>("MobId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasIndex("MobId");
-
-                    b.ToTable("MobAbilities", "DbUndervisningProject");
-                });
-
-            modelBuilder.Entity("DbUndervisning.Model.NPCStuff.Humanoid", b =>
-                {
-                    b.HasBaseType("DbUndervisning.Model.NPCStuff.NPC");
-
-                    b.Property<Guid?>("RegionId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasIndex("RegionId");
-
-                    b.ToTable("Humanoids", "DbUndervisningProject");
-                });
-
-            modelBuilder.Entity("DbUndervisning.Model.NPCStuff.Mob", b =>
-                {
-                    b.HasBaseType("DbUndervisning.Model.NPCStuff.NPC");
-
-                    b.Property<Guid?>("RegionId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasIndex("RegionId");
-
-                    b.ToTable("Mobs", "DbUndervisningProject");
-                });
-
-            modelBuilder.Entity("DbUndervisning.Model.Account.Character", b =>
-                {
-                    b.HasOne("DbUndervisning.Model.Account.Player", null)
-                        .WithMany("Characters")
-                        .HasForeignKey("PlayerId")
+                    b.HasOne("DbUndervisning.Model.NPCStuff.NPC", "NPC")
+                        .WithMany("Abilities")
+                        .HasForeignKey("NPCId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("NPC");
                 });
 
             modelBuilder.Entity("DbUndervisning.Model.Item", b =>
@@ -407,23 +341,32 @@ namespace DbUndervisning.Migrations
                         .HasForeignKey("CharacterId");
                 });
 
+            modelBuilder.Entity("DbUndervisning.Model.NPCStuff.NPC", b =>
+                {
+                    b.HasOne("DbUndervisning.Model.Region", null)
+                        .WithMany("NPCS")
+                        .HasForeignKey("RegionId");
+                });
+
             modelBuilder.Entity("DbUndervisning.Model.Quests.Quest", b =>
                 {
                     b.HasOne("DbUndervisning.Model.Account.Character", null)
                         .WithMany("CompletedQuests")
                         .HasForeignKey("CharacterId");
 
-                    b.HasOne("DbUndervisning.Model.NPCStuff.Humanoid", null)
-                        .WithOne("Quest")
-                        .HasForeignKey("DbUndervisning.Model.Quests.Quest", "HumanoidId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("DbUndervisning.Model.Item", "ItemToCreate")
                         .WithMany()
                         .HasForeignKey("ItemToCreateId");
 
+                    b.HasOne("DbUndervisning.Model.NPCStuff.NPC", "NPC")
+                        .WithOne("Quest")
+                        .HasForeignKey("DbUndervisning.Model.Quests.Quest", "NPCId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("ItemToCreate");
+
+                    b.Navigation("NPC");
                 });
 
             modelBuilder.Entity("DbUndervisning.Model.Quests.Reward", b =>
@@ -453,47 +396,6 @@ namespace DbUndervisning.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("DbUndervisning.Model.Abilities.CharacterAbility", b =>
-                {
-                    b.HasOne("DbUndervisning.Model.Account.Character", null)
-                        .WithMany("Abilities")
-                        .HasForeignKey("CharacterId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("DbUndervisning.Model.Abilities.HumanoidAbility", b =>
-                {
-                    b.HasOne("DbUndervisning.Model.NPCStuff.Humanoid", null)
-                        .WithMany("Abilities")
-                        .HasForeignKey("HumanoidId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("DbUndervisning.Model.Abilities.MobAbility", b =>
-                {
-                    b.HasOne("DbUndervisning.Model.NPCStuff.Mob", null)
-                        .WithMany("Abilities")
-                        .HasForeignKey("MobId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("DbUndervisning.Model.NPCStuff.Humanoid", b =>
-                {
-                    b.HasOne("DbUndervisning.Model.Region", null)
-                        .WithMany("Humanoids")
-                        .HasForeignKey("RegionId");
-                });
-
-            modelBuilder.Entity("DbUndervisning.Model.NPCStuff.Mob", b =>
-                {
-                    b.HasOne("DbUndervisning.Model.Region", null)
-                        .WithMany("Mobs")
-                        .HasForeignKey("RegionId");
-                });
-
             modelBuilder.Entity("DbUndervisning.Model.Account.Character", b =>
                 {
                     b.Navigation("Abilities");
@@ -503,14 +405,17 @@ namespace DbUndervisning.Migrations
                     b.Navigation("Items");
                 });
 
-            modelBuilder.Entity("DbUndervisning.Model.Account.Player", b =>
-                {
-                    b.Navigation("Characters");
-                });
-
             modelBuilder.Entity("DbUndervisning.Model.Item", b =>
                 {
                     b.Navigation("Stats");
+                });
+
+            modelBuilder.Entity("DbUndervisning.Model.NPCStuff.NPC", b =>
+                {
+                    b.Navigation("Abilities");
+
+                    b.Navigation("Quest")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("DbUndervisning.Model.Quests.Quest", b =>
@@ -520,27 +425,12 @@ namespace DbUndervisning.Migrations
 
             modelBuilder.Entity("DbUndervisning.Model.Region", b =>
                 {
-                    b.Navigation("Humanoids");
-
-                    b.Navigation("Mobs");
+                    b.Navigation("NPCS");
                 });
 
             modelBuilder.Entity("DbUndervisning.Model.World", b =>
                 {
                     b.Navigation("Regions");
-                });
-
-            modelBuilder.Entity("DbUndervisning.Model.NPCStuff.Humanoid", b =>
-                {
-                    b.Navigation("Abilities");
-
-                    b.Navigation("Quest")
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("DbUndervisning.Model.NPCStuff.Mob", b =>
-                {
-                    b.Navigation("Abilities");
                 });
 #pragma warning restore 612, 618
         }

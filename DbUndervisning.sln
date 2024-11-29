@@ -5,7 +5,9 @@ VisualStudioVersion = 17.11.35312.102
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DbUndervisning", "DbUndervisning\DbUndervisning.csproj", "{D596D721-541A-427B-BED6-C2DA6B659AE2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DbUndervisningInteractions", "DbUndervisningInteractions\DbUndervisningInteractions.csproj", "{D1E486FD-0CCD-42CE-ADD9-E82386676506}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DbUndervisningInteractions", "DbUndervisningInteractions\DbUndervisningInteractions.csproj", "{D1E486FD-0CCD-42CE-ADD9-E82386676506}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiPlayerDb", "MultiPlayerDb\MultiPlayerDb.csproj", "{596DFF98-668C-48A9-A4E6-E6FD3CEE2454}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{D1E486FD-0CCD-42CE-ADD9-E82386676506}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D1E486FD-0CCD-42CE-ADD9-E82386676506}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D1E486FD-0CCD-42CE-ADD9-E82386676506}.Release|Any CPU.Build.0 = Release|Any CPU
+		{596DFF98-668C-48A9-A4E6-E6FD3CEE2454}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{596DFF98-668C-48A9-A4E6-E6FD3CEE2454}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{596DFF98-668C-48A9-A4E6-E6FD3CEE2454}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{596DFF98-668C-48A9-A4E6-E6FD3CEE2454}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
