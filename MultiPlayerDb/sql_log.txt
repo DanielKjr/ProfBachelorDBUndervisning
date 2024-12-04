@@ -1,120 +1,49 @@
 
-warn: 29/11/2024 10.45.25.569 CoreEventId.SensitiveDataLoggingEnabledWarning[10400] (Microsoft.EntityFrameworkCore.Infrastructure) 
+warn: 03/12/2024 10.20.39.438 CoreEventId.SensitiveDataLoggingEnabledWarning[10400] (Microsoft.EntityFrameworkCore.Infrastructure) 
       Sensitive data logging is enabled. Log entries and exception messages may include sensitive application data; this mode should only be enabled during development.
 
-info: 29/11/2024 10.45.26.230 RelationalEventId.CommandExecuted[20101] (Microsoft.EntityFrameworkCore.Database.Command) 
-      Executed DbCommand (34ms) [Parameters=[@__name_0='Kandarin' (Size = 25)], CommandType='Text', CommandTimeout='30']
+info: 03/12/2024 10.20.40.214 RelationalEventId.CommandExecuted[20101] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Executed DbCommand (31ms) [Parameters=[@__name_0='Kandarin' (Size = 25)], CommandType='Text', CommandTimeout='30']
       SELECT [w].[Id]
       FROM [MultiPlayerDb].[Worlds] AS [w]
       WHERE [w].[Name] = @__name_0
 
-info: 29/11/2024 10.45.26.340 RelationalEventId.CommandExecuted[20101] (Microsoft.EntityFrameworkCore.Database.Command) 
-      Executed DbCommand (2ms) [Parameters=[@__worldId_0='bc547cf0-207d-4ec8-2e39-08dd10537994'], CommandType='Text', CommandTimeout='30']
+info: 03/12/2024 10.20.40.317 RelationalEventId.CommandExecuted[20101] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Executed DbCommand (3ms) [Parameters=[@__worldId_0='bc547cf0-207d-4ec8-2e39-08dd10537994'], CommandType='Text', CommandTimeout='30']
       SELECT [r].[Id]
       FROM [MultiPlayerDb].[Regions] AS [r]
       WHERE [r].[WorldId] = @__worldId_0
 
-info: 29/11/2024 10.45.26.410 RelationalEventId.CommandExecuted[20101] (Microsoft.EntityFrameworkCore.Database.Command) 
+info: 03/12/2024 10.20.40.391 RelationalEventId.CommandExecuted[20101] (Microsoft.EntityFrameworkCore.Database.Command) 
       Executed DbCommand (2ms) [Parameters=[@__region_0='a2f2f2e7-f854-4036-e2e0-08dd10537995'], CommandType='Text', CommandTimeout='30']
       SELECT [n].[Id]
       FROM [MultiPlayerDb].[Regions] AS [r]
       INNER JOIN [MultiPlayerDb].[NPCs] AS [n] ON [r].[Id] = [n].[RegionId]
       WHERE [r].[Id] = @__region_0
 
-info: 29/11/2024 10.45.26.436 RelationalEventId.CommandExecuted[20101] (Microsoft.EntityFrameworkCore.Database.Command) 
-      Executed DbCommand (3ms) [Parameters=[@__npcId_0='e5ce2e37-fe84-444f-8efc-08dd10537998'], CommandType='Text', CommandTimeout='30']
+info: 03/12/2024 10.20.40.420 RelationalEventId.CommandExecuted[20101] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Executed DbCommand (2ms) [Parameters=[@__npcId_0='e5ce2e37-fe84-444f-8efc-08dd10537998'], CommandType='Text', CommandTimeout='30']
       SELECT [q].[Id]
       FROM [MultiPlayerDb].[NPCs] AS [n]
       LEFT JOIN [MultiPlayerDb].[Quests] AS [q] ON [n].[Id] = [q].[NPCId]
       WHERE [n].[Id] = @__npcId_0
 
-info: 29/11/2024 10.45.26.445 RelationalEventId.CommandExecuted[20101] (Microsoft.EntityFrameworkCore.Database.Command) 
-      Executed DbCommand (2ms) [Parameters=[@__npcId_0='f619dbc3-b841-4338-8efd-08dd10537998'], CommandType='Text', CommandTimeout='30']
+info: 03/12/2024 10.20.40.427 RelationalEventId.CommandExecuted[20101] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Executed DbCommand (0ms) [Parameters=[@__npcId_0='f619dbc3-b841-4338-8efd-08dd10537998'], CommandType='Text', CommandTimeout='30']
       SELECT [q].[Id]
       FROM [MultiPlayerDb].[NPCs] AS [n]
       LEFT JOIN [MultiPlayerDb].[Quests] AS [q] ON [n].[Id] = [q].[NPCId]
       WHERE [n].[Id] = @__npcId_0
 
-fail: 29/11/2024 10.45.26.462 CoreEventId.QueryIterationFailed[10100] (Microsoft.EntityFrameworkCore.Query) 
+fail: 03/12/2024 10.20.40.457 CoreEventId.QueryIterationFailed[10100] (Microsoft.EntityFrameworkCore.Query) 
       An exception occurred while iterating over the results of a query for context type 'MultiPlayerDb.Context.WorldContext'.
       System.InvalidOperationException: Nullable object must have a value.
          at lambda_method50(Closure, QueryContext, DbDataReader, ResultContext, SingleQueryResultCoordinator)
          at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.Enumerator.MoveNext()
 
-info: 29/11/2024 10.45.26.662 RelationalEventId.CommandExecuted[20101] (Microsoft.EntityFrameworkCore.Database.Command) 
+info: 03/12/2024 10.20.40.718 RelationalEventId.CommandExecuted[20101] (Microsoft.EntityFrameworkCore.Database.Command) 
       Executed DbCommand (2ms) [Parameters=[@__questId_0='bd218395-a365-48d4-af0e-08dd1053799d'], CommandType='Text', CommandTimeout='30']
       SELECT [i].[Id]
       FROM [MultiPlayerDb].[Quests] AS [q]
       LEFT JOIN [MultiPlayerDb].[Items] AS [i] ON [q].[ItemToCreateId] = [i].[Id]
       WHERE [q].[Id] = @__questId_0
-
-info: 29/11/2024 10.45.27.873 RelationalEventId.CommandExecuted[20101] (Microsoft.EntityFrameworkCore.Database.Command) 
-      Executed DbCommand (3ms) [Parameters=[@__id_0='bc547cf0-207d-4ec8-2e39-08dd10537994'], CommandType='Text', CommandTimeout='30']
-      SELECT [w0].[Id], [w0].[Name], [r].[Id], [r].[Asset], [r].[Description], [r].[Name], [r].[Size], [r].[WorldId]
-      FROM (
-          SELECT TOP(1) [w].[Id], [w].[Name]
-          FROM [MultiPlayerDb].[Worlds] AS [w]
-          WHERE [w].[Id] = @__id_0
-      ) AS [w0]
-      LEFT JOIN [MultiPlayerDb].[Regions] AS [r] ON [w0].[Id] = [r].[WorldId]
-      ORDER BY [w0].[Id]
-
-info: 29/11/2024 10.45.28.187 RelationalEventId.CommandExecuted[20101] (Microsoft.EntityFrameworkCore.Database.Command) 
-      Executed DbCommand (4ms) [Parameters=[@__id_0='bc547cf0-207d-4ec8-2e39-08dd10537994'], CommandType='Text', CommandTimeout='30']
-      SELECT [r0].[Id], [r0].[Asset], [r0].[Description], [r0].[Name], [r0].[Size], [r0].[WorldId], [n].[Id], [n].[Attackable], [n].[Behavior], [n].[Class], [n].[Health], [n].[Level], [n].[Name], [n].[Position], [n].[RegionId], [n].[Texture]
-      FROM (
-          SELECT TOP(1) [r].[Id], [r].[Asset], [r].[Description], [r].[Name], [r].[Size], [r].[WorldId]
-          FROM [MultiPlayerDb].[Regions] AS [r]
-          WHERE [r].[WorldId] = @__id_0
-      ) AS [r0]
-      LEFT JOIN [MultiPlayerDb].[NPCs] AS [n] ON [r0].[Id] = [n].[RegionId]
-      ORDER BY [r0].[Id]
-
-warn: 29/11/2024 10.45.29.726 RelationalEventId.MultipleCollectionIncludeWarning[20504] (Microsoft.EntityFrameworkCore.Query) 
-      Compiling a query which loads related collections for more than one collection navigation, either via 'Include' or through projection, but no 'QuerySplittingBehavior' has been configured. By default, Entity Framework will use 'QuerySplittingBehavior.SingleQuery', which can potentially result in slow query performance. See https://go.microsoft.com/fwlink/?linkid=2134277 for more information. To identify the query that's triggering this warning call 'ConfigureWarnings(w => w.Throw(RelationalEventId.MultipleCollectionIncludeWarning))'.
-
-info: 29/11/2024 10.45.29.765 RelationalEventId.CommandExecuted[20101] (Microsoft.EntityFrameworkCore.Database.Command) 
-      Executed DbCommand (28ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
-      SELECT [w0].[Id], [w0].[Name], [s1].[Id], [s1].[Asset], [s1].[Description], [s1].[Name], [s1].[Size], [s1].[WorldId], [s1].[Id0], [s1].[Attackable], [s1].[Behavior], [s1].[Class], [s1].[Health], [s1].[Level], [s1].[Name0], [s1].[Position], [s1].[RegionId], [s1].[Texture], [s1].[Id00], [s1].[Id1], [s1].[Id2], [s1].[Id3], [s1].[CharacterId], [s1].[ClassConstraint], [s1].[Damage], [s1].[Description0], [s1].[NPCId], [s1].[Name00], [s1].[CharacterId0], [s1].[Dialogue], [s1].[ItemToCreateId], [s1].[NPCId0], [s1].[Objective], [s1].[Title], [s1].[CharacterId1], [s1].[Description00], [s1].[Name1], [s1].[Rarity], [s1].[Texture0], [s1].[Id4], [s1].[Boost], [s1].[Description1], [s1].[ItemId], [s1].[Name2], [s1].[StatType], [s1].[Currency], [s1].[Experience], [s1].[QuestId]
-      FROM (
-          SELECT TOP(1) [w].[Id], [w].[Name]
-          FROM [MultiPlayerDb].[Worlds] AS [w]
-          WHERE [w].[Name] = N'Kandarin'
-      ) AS [w0]
-      LEFT JOIN (
-          SELECT [r].[Id], [r].[Asset], [r].[Description], [r].[Name], [r].[Size], [r].[WorldId], [s0].[Id] AS [Id0], [s0].[Attackable], [s0].[Behavior], [s0].[Class], [s0].[Health], [s0].[Level], [s0].[Name] AS [Name0], [s0].[Position], [s0].[RegionId], [s0].[Texture], [s0].[Id0] AS [Id00], [s0].[Id1], [s0].[Id2], [s0].[Id3], [s0].[CharacterId], [s0].[ClassConstraint], [s0].[Damage], [s0].[Description] AS [Description0], [s0].[NPCId], [s0].[Name0] AS [Name00], [s0].[CharacterId0], [s0].[Dialogue], [s0].[ItemToCreateId], [s0].[NPCId0], [s0].[Objective], [s0].[Title], [s0].[CharacterId1], [s0].[Description0] AS [Description00], [s0].[Name1], [s0].[Rarity], [s0].[Texture0], [s0].[Id4], [s0].[Boost], [s0].[Description1], [s0].[ItemId], [s0].[Name2], [s0].[StatType], [s0].[Currency], [s0].[Experience], [s0].[QuestId]
-          FROM [MultiPlayerDb].[Regions] AS [r]
-          LEFT JOIN (
-              SELECT [n].[Id], [n].[Attackable], [n].[Behavior], [n].[Class], [n].[Health], [n].[Level], [n].[Name], [n].[Position], [n].[RegionId], [n].[Texture], [q].[Id] AS [Id0], [i].[Id] AS [Id1], [r0].[Id] AS [Id2], [a].[Id] AS [Id3], [a].[CharacterId], [a].[ClassConstraint], [a].[Damage], [a].[Description], [a].[NPCId], [a].[Name] AS [Name0], [q].[CharacterId] AS [CharacterId0], [q].[Dialogue], [q].[ItemToCreateId], [q].[NPCId] AS [NPCId0], [q].[Objective], [q].[Title], [i].[CharacterId] AS [CharacterId1], [i].[Description] AS [Description0], [i].[Name] AS [Name1], [i].[Rarity], [i].[Texture] AS [Texture0], [s].[Id] AS [Id4], [s].[Boost], [s].[Description] AS [Description1], [s].[ItemId], [s].[Name] AS [Name2], [s].[StatType], [r0].[Currency], [r0].[Experience], [r0].[QuestId]
-              FROM [MultiPlayerDb].[NPCs] AS [n]
-              LEFT JOIN [MultiPlayerDb].[Quests] AS [q] ON [n].[Id] = [q].[NPCId]
-              LEFT JOIN [MultiPlayerDb].[Items] AS [i] ON [q].[ItemToCreateId] = [i].[Id]
-              LEFT JOIN [MultiPlayerDb].[Rewards] AS [r0] ON [q].[Id] = [r0].[QuestId]
-              LEFT JOIN [MultiPlayerDb].[Abilities] AS [a] ON [n].[Id] = [a].[NPCId]
-              LEFT JOIN [MultiPlayerDb].[Stats] AS [s] ON [i].[Id] = [s].[ItemId]
-          ) AS [s0] ON [r].[Id] = [s0].[RegionId]
-      ) AS [s1] ON [w0].[Id] = [s1].[WorldId]
-      ORDER BY [w0].[Id], [s1].[Id], [s1].[Id0], [s1].[Id00], [s1].[Id1], [s1].[Id2], [s1].[Id3]
-
-warn: 29/11/2024 10.45.29.906 RelationalEventId.MultipleCollectionIncludeWarning[20504] (Microsoft.EntityFrameworkCore.Query) 
-      Compiling a query which loads related collections for more than one collection navigation, either via 'Include' or through projection, but no 'QuerySplittingBehavior' has been configured. By default, Entity Framework will use 'QuerySplittingBehavior.SingleQuery', which can potentially result in slow query performance. See https://go.microsoft.com/fwlink/?linkid=2134277 for more information. To identify the query that's triggering this warning call 'ConfigureWarnings(w => w.Throw(RelationalEventId.MultipleCollectionIncludeWarning))'.
-
-info: 29/11/2024 10.45.29.935 RelationalEventId.CommandExecuted[20101] (Microsoft.EntityFrameworkCore.Database.Command) 
-      Executed DbCommand (17ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
-      SELECT [p0].[Id], [p0].[HashedPw], [p0].[Name], [s1].[Id], [s1].[Class], [s1].[Currency], [s1].[Level], [s1].[Name], [s1].[PlayerId], [s1].[Position], [s1].[Id0], [s1].[CharacterId], [s1].[ClassConstraint], [s1].[Damage], [s1].[Description], [s1].[NPCId], [s1].[Name0], [s1].[Id1], [s1].[CharacterId0], [s1].[Dialogue], [s1].[ItemToCreateId], [s1].[NPCId0], [s1].[Objective], [s1].[Title], [s1].[Id2], [s1].[CharacterId1], [s1].[Description0], [s1].[Name1], [s1].[Rarity], [s1].[Texture], [s1].[Id00], [s1].[Boost], [s1].[Description00], [s1].[ItemId], [s1].[Name00], [s1].[StatType]
-      FROM (
-          SELECT TOP(1) [p].[Id], [p].[HashedPw], [p].[Name]
-          FROM [MultiPlayerDb].[Players] AS [p]
-      ) AS [p0]
-      LEFT JOIN (
-          SELECT [c].[Id], [c].[Class], [c].[Currency], [c].[Level], [c].[Name], [c].[PlayerId], [c].[Position], [a].[Id] AS [Id0], [a].[CharacterId], [a].[ClassConstraint], [a].[Damage], [a].[Description], [a].[NPCId], [a].[Name] AS [Name0], [q].[Id] AS [Id1], [q].[CharacterId] AS [CharacterId0], [q].[Dialogue], [q].[ItemToCreateId], [q].[NPCId] AS [NPCId0], [q].[Objective], [q].[Title], [s0].[Id] AS [Id2], [s0].[CharacterId] AS [CharacterId1], [s0].[Description] AS [Description0], [s0].[Name] AS [Name1], [s0].[Rarity], [s0].[Texture], [s0].[Id0] AS [Id00], [s0].[Boost], [s0].[Description0] AS [Description00], [s0].[ItemId], [s0].[Name0] AS [Name00], [s0].[StatType]
-          FROM [MultiPlayerDb].[Characters] AS [c]
-          LEFT JOIN [MultiPlayerDb].[Abilities] AS [a] ON [c].[Id] = [a].[CharacterId]
-          LEFT JOIN [MultiPlayerDb].[Quests] AS [q] ON [c].[Id] = [q].[CharacterId]
-          LEFT JOIN (
-              SELECT [i].[Id], [i].[CharacterId], [i].[Description], [i].[Name], [i].[Rarity], [i].[Texture], [s].[Id] AS [Id0], [s].[Boost], [s].[Description] AS [Description0], [s].[ItemId], [s].[Name] AS [Name0], [s].[StatType]
-              FROM [MultiPlayerDb].[Items] AS [i]
-              LEFT JOIN [MultiPlayerDb].[Stats] AS [s] ON [i].[Id] = [s].[ItemId]
-          ) AS [s0] ON [c].[Id] = [s0].[CharacterId]
-      ) AS [s1] ON [p0].[Id] = [s1].[PlayerId]
-      ORDER BY [p0].[Id], [s1].[Id], [s1].[Id0], [s1].[Id1], [s1].[Id2]

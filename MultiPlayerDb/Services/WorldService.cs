@@ -32,6 +32,9 @@ namespace MultiPlayerDb.Services
 
 		public async Task<World> GetWorldByName(string name)
 		{
+			
+			//var t = DbContextHelper.GetContext(name);
+			//var context = (DbContext)Activator.CreateInstance(t);
 			return await _asyncRepository.GetItem<World>(q => q.Where(x => x.Name == name));
 		}
 

@@ -202,33 +202,105 @@
             <param name="queryOperation"></param>
             <returns></returns>
         </member>
+        <member name="T:EF_InteractionFrameworkCore.Interfaces.IReadOnlyAsyncRepository`1">
+            <summary>
+            Interface providing generic async methods for read only interactions with EF Core's DbContext.
+            <para>
+            Must be registered as a service in Startup.cs using one of the provided AddTransient, AddScoped, AddSingleton versions Example:
+            <![CDATA[
+            builder.Services.AddTransientAsyncRepositoryReadOnly<TestContext>();
+            ]]>
+            </para>
+            <para>
+            Alongside a DbContext factory:
+            <![CDATA[
+            builder.Services.AddDbContextFactory<YourContext>();
+            ]]>
+            </para>
+            </summary>
+            <typeparam name="TContext">The DbContext type</typeparam>
+        </member>
+        <member name="M:EF_InteractionFrameworkCore.Interfaces.IReadOnlyAsyncRepository`1.GetItem``1(System.Func{System.Linq.IQueryable{``0},System.Linq.IQueryable{``0}})">
+            <summary>
+            Returns the TEntity matching the queryOperation from the DbSet matching type parameters
+            <para>
+            <![CDATA[Example: _repository.GetItem<TEntity>(query => query.Where(x => x.ID == 201023));]]>
+            </para>
+            </summary>
+            <typeparam name="TEntity"></typeparam>
+            <param name="queryOperation">IQueryable expression</param>
+            <returns>FirstOrDefault TEntity</returns>
+        </member>
+        <member name="M:EF_InteractionFrameworkCore.Interfaces.IReadOnlyAsyncRepository`1.GetAllItems``1(System.Func{System.Linq.IQueryable{``0},System.Linq.IQueryable{``0}})">
+            <summary>
+            Returns TEntity list of DbSet matching type parameters by default.
+            <para>
+            Returns TEntity list of entries matching queryOperation when optional parameter is used.
+            </para>
+            <para>
+            <![CDATA[Example: _repository.GetAllItems<TEntity>(query => query.Where(x=> x.Age == 4));]]>
+            </para>
+            </summary>
+            <typeparam name="TEntity"></typeparam>
+            <param name="queryOperation">Optional IQueryable expression</param>
+            <returns>List{TEntity}</returns>
+        </member>
+        <member name="M:EF_InteractionFrameworkCore.Interfaces.IReadOnlyAsyncRepository`1.GetAllForColumn``2(System.Func{System.Linq.IQueryable{``0},System.Linq.IQueryable{``1}})">
+            <summary>
+            Returns T from DbSet matching type parameter.
+            <para>Used to retrieve a specific column</para>
+            <para>
+            <![CDATA[Example: _repository.GetAllForColumn<TEntity, string>(q => q.Select(x => x.PropertyName))]]>
+            </para>
+            </summary>
+            <typeparam name="TEntity">TEntity that is in a DbSet</typeparam>
+            <typeparam name="T">Expected return type</typeparam>
+            <param name="queryOperation">IQueryable expression</param>
+            <returns>List{T}</returns>
+        </member>
+        <member name="M:EF_InteractionFrameworkCore.Interfaces.IReadOnlyAsyncRepository`1.GetAllForColumnStruct``2(System.Func{System.Linq.IQueryable{``0},System.Linq.IQueryable{``1}})">
+            <summary>
+            Returns T from DbSet matching type parameter.
+            <para>Used to retrieve struct data types</para>
+            <para>
+            <![CDATA[Example: _repository.GetAllForColumn<TEntity, int>(q => q.Select(x => x.PropertyName))]]>
+            </para>
+            </summary>
+            <typeparam name="TEntity"></typeparam>
+            <typeparam name="T"></typeparam>
+            <param name="queryOperation"></param>
+            <returns></returns>
+        </member>
         <member name="T:EF_InteractionFrameworkCore.ServiceCollectionExtention">
             <summary>
             Methods for adding the AsyncRepository to the IServiceCollection
             </summary>
         </member>
-        <member name="M:EF_InteractionFrameworkCore.ServiceCollectionExtention.AddScopedAsyncRepository``1(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+        <member name="M:EF_InteractionFrameworkCore.ServiceCollectionExtention.AddScopedAsyncRepository``1(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Boolean)">
             <summary>
-            Adds the AsyncRepository as a scoped service
+            Adds the AsyncRepository as a scoped service with an optional ReadOnlyAsyncRepository
             </summary>
             <typeparam name="TContext"></typeparam>
             <param name="services"></param>
+            <param name="addReadOnlyRepo"></param>
             <returns></returns>
         </member>
-        <member name="M:EF_InteractionFrameworkCore.ServiceCollectionExtention.AddTransientAsyncRepository``1(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+        <member name="M:EF_InteractionFrameworkCore.ServiceCollectionExtention.AddTransientAsyncRepository``1(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Boolean)">
             <summary>
-            Adds the AsyncRepository as a transient service
+            Adds the AsyncRepository as a transient service with an optional ReadOnlyAsyncRepository
             </summary>
             <typeparam name="TContext"></typeparam>
             <param name="services"></param>
+            <param name="addReadOnlyRepo"></param>
             <returns></returns>
         </member>
-        <member name="M:EF_InteractionFrameworkCore.ServiceCollectionExtention.AddSingletonAsyncRepository``1(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+        <member name="M:EF_InteractionFrameworkCore.ServiceCollectionExtention.AddSingletonAsyncRepository``1(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Boolean)">
             <summary>
-            Adds the AsyncRepository as a singleton service
+            Adds the AsyncRepository as a singleton service with an optional ReadOnlyAsyncRepository
             </summary>
             <typeparam name="TContext"></typeparam>
             <param name="services"></param>
+            <param name="addReadOnlyRepo"></param>
             <returns></returns>
         </member>
     </members>

@@ -21,6 +21,15 @@ builder.Services.AddTransient<IPlayerService, PlayerService>();
 
 builder.Services.AddDbContextFactory<WorldContext>();
 builder.Services.AddTransientAsyncRepository<WorldContext>();
+
+builder.Services.AddDbContextFactory<WorldContextAG>();
+builder.Services.AddTransientAsyncRepository<WorldContextAG>();
+
+builder.Services.AddDbContextFactory<WorldContextHP>();
+builder.Services.AddTransientAsyncRepository<WorldContextHP>();
+
+builder.Services.AddDbContextFactory<WorldContextQZ>();
+builder.Services.AddTransientAsyncRepository<WorldContextQZ>();
 builder.Services.AddControllers()
 	.AddJsonOptions(options =>
 	{
