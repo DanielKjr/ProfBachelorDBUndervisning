@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MongoDb.Model;
+using MongoDB.Driver;
+using MongoDB.EntityFrameworkCore.Extensions;
 
 namespace MongoDb.Context
 {
@@ -7,10 +9,17 @@ namespace MongoDb.Context
 	{
 		public DbSet<Entity> Entities { get; set; }
 
+	
 
 		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 		{
-			optionsBuilder.UseMongoDB(_configuration["MongoDb"], _configuration["MongoDbName"]);
+			optionsBuilder.UseMongoDB(_configuration["ConnectionStrings:MongoDb"], _configuration["ConnectionStrings:MongoDbName"]);
+		}
+
+		protected override void OnModelCreating(ModelBuilder modelBuilder)
+		{
+			base.OnModelCreating(modelBuilder);
+			modelBuilder.Entity<Entity>().ToCollection("entities");
 		}
 	}
 }
