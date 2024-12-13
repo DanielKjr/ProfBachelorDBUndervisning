@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MultiPlayerDb.Services;
 using MultiPlayerDb.Services.Interfaces;
 
 namespace MultiPlayerDb.Controllers
@@ -21,14 +22,9 @@ namespace MultiPlayerDb.Controllers
 			return await Task.FromResult(await _guidService.GetRegionIdsById(worldId));
 		}
 
-		//[HttpGet("mobId/{regionId}")]
-		//public async Task<List<Guid>> GetMobIdsByRegionId(Guid regionId)
-		//{
-		//	return await Task.FromResult(await _guidService.GetMobIdsByRegionId(regionId));
-		//}
 
 		[HttpGet("abilitiesById/{npcId}")]
-		public async Task<List<Guid>> GetMobAbilitiesById(Guid npcId)
+		public async Task<List<Guid>> GetNPCAbilitiesById(Guid npcId)
 		{
 			return await Task.FromResult(await _guidService.GetAbilitiesByNPCID(npcId));
 		}
@@ -39,12 +35,6 @@ namespace MultiPlayerDb.Controllers
 			return await Task.FromResult(await _guidService.GetNPCIdsByRegionId(regionId));
 		}
 
-
-		//[HttpGet("humanoidAbilities/{humanoidId}")]
-		//public async Task<List<Guid>> GetHumanoidAbilitiesById(Guid humanoidId)
-		//{
-		//	return await Task.FromResult(await _guidService.GetHumanoidAbilityIdsByHumanoidId(humanoidId));
-		//}
 
 		[HttpGet("characterItems/{characterId}")]
 		public async Task<List<Guid>> GetCharacterItemsById(Guid characterId)

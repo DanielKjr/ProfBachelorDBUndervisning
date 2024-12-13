@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MultiPlayerDb.Model;
+using MultiPlayerDb.Services;
 using MultiPlayerDb.Services.Interfaces;
 
 namespace MultiPlayerDb.Controllers

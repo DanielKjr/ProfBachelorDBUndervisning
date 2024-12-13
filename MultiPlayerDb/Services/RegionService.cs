@@ -6,6 +6,7 @@ using MultiPlayerDb.Services.Interfaces;
 
 namespace MultiPlayerDb.Services
 {
+	
 	public class RegionService(IAsyncRepository<WorldContext> _asyncRepository) : IRegionService
 	{
 		public async Task<Region> GetRegionById(Guid id)

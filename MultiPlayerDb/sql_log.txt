@@ -1,49 +1,71 @@
 
-warn: 03/12/2024 10.20.39.438 CoreEventId.SensitiveDataLoggingEnabledWarning[10400] (Microsoft.EntityFrameworkCore.Infrastructure) 
+warn: 12/12/2024 09.29.58.536 CoreEventId.SensitiveDataLoggingEnabledWarning[10400] (Microsoft.EntityFrameworkCore.Infrastructure) 
       Sensitive data logging is enabled. Log entries and exception messages may include sensitive application data; this mode should only be enabled during development.
 
-info: 03/12/2024 10.20.40.214 RelationalEventId.CommandExecuted[20101] (Microsoft.EntityFrameworkCore.Database.Command) 
-      Executed DbCommand (31ms) [Parameters=[@__name_0='Kandarin' (Size = 25)], CommandType='Text', CommandTimeout='30']
+info: 12/12/2024 09.29.59.316 RelationalEventId.CommandExecuted[20101] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Executed DbCommand (35ms) [Parameters=[@__name_0='Kandarin' (Size = 25)], CommandType='Text', CommandTimeout='30']
       SELECT [w].[Id]
       FROM [MultiPlayerDb].[Worlds] AS [w]
       WHERE [w].[Name] = @__name_0
 
-info: 03/12/2024 10.20.40.317 RelationalEventId.CommandExecuted[20101] (Microsoft.EntityFrameworkCore.Database.Command) 
-      Executed DbCommand (3ms) [Parameters=[@__worldId_0='bc547cf0-207d-4ec8-2e39-08dd10537994'], CommandType='Text', CommandTimeout='30']
+info: 12/12/2024 09.29.59.417 RelationalEventId.CommandExecuted[20101] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Executed DbCommand (5ms) [Parameters=[@__worldId_0='9ce831bf-78aa-4b76-3436-08dd19c415a5'], CommandType='Text', CommandTimeout='30']
       SELECT [r].[Id]
       FROM [MultiPlayerDb].[Regions] AS [r]
       WHERE [r].[WorldId] = @__worldId_0
 
-info: 03/12/2024 10.20.40.391 RelationalEventId.CommandExecuted[20101] (Microsoft.EntityFrameworkCore.Database.Command) 
-      Executed DbCommand (2ms) [Parameters=[@__region_0='a2f2f2e7-f854-4036-e2e0-08dd10537995'], CommandType='Text', CommandTimeout='30']
+info: 12/12/2024 09.29.59.490 RelationalEventId.CommandExecuted[20101] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Executed DbCommand (3ms) [Parameters=[@__region_0='12467934-5d6e-46c7-4fe4-08dd19c415a5'], CommandType='Text', CommandTimeout='30']
       SELECT [n].[Id]
       FROM [MultiPlayerDb].[Regions] AS [r]
       INNER JOIN [MultiPlayerDb].[NPCs] AS [n] ON [r].[Id] = [n].[RegionId]
       WHERE [r].[Id] = @__region_0
 
-info: 03/12/2024 10.20.40.420 RelationalEventId.CommandExecuted[20101] (Microsoft.EntityFrameworkCore.Database.Command) 
-      Executed DbCommand (2ms) [Parameters=[@__npcId_0='e5ce2e37-fe84-444f-8efc-08dd10537998'], CommandType='Text', CommandTimeout='30']
+info: 12/12/2024 09.29.59.524 RelationalEventId.CommandExecuted[20101] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Executed DbCommand (3ms) [Parameters=[@__npcId_0='9d19f87f-4b52-4d8d-c308-08dd19c415a5'], CommandType='Text', CommandTimeout='30']
       SELECT [q].[Id]
       FROM [MultiPlayerDb].[NPCs] AS [n]
       LEFT JOIN [MultiPlayerDb].[Quests] AS [q] ON [n].[Id] = [q].[NPCId]
       WHERE [n].[Id] = @__npcId_0
 
-info: 03/12/2024 10.20.40.427 RelationalEventId.CommandExecuted[20101] (Microsoft.EntityFrameworkCore.Database.Command) 
-      Executed DbCommand (0ms) [Parameters=[@__npcId_0='f619dbc3-b841-4338-8efd-08dd10537998'], CommandType='Text', CommandTimeout='30']
+info: 12/12/2024 09.29.59.531 RelationalEventId.CommandExecuted[20101] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Executed DbCommand (0ms) [Parameters=[@__npcId_0='99ce3705-a630-4e65-c309-08dd19c415a5'], CommandType='Text', CommandTimeout='30']
       SELECT [q].[Id]
       FROM [MultiPlayerDb].[NPCs] AS [n]
       LEFT JOIN [MultiPlayerDb].[Quests] AS [q] ON [n].[Id] = [q].[NPCId]
       WHERE [n].[Id] = @__npcId_0
 
-fail: 03/12/2024 10.20.40.457 CoreEventId.QueryIterationFailed[10100] (Microsoft.EntityFrameworkCore.Query) 
+fail: 12/12/2024 09.29.59.563 CoreEventId.QueryIterationFailed[10100] (Microsoft.EntityFrameworkCore.Query) 
       An exception occurred while iterating over the results of a query for context type 'MultiPlayerDb.Context.WorldContext'.
       System.InvalidOperationException: Nullable object must have a value.
          at lambda_method50(Closure, QueryContext, DbDataReader, ResultContext, SingleQueryResultCoordinator)
          at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.Enumerator.MoveNext()
 
-info: 03/12/2024 10.20.40.718 RelationalEventId.CommandExecuted[20101] (Microsoft.EntityFrameworkCore.Database.Command) 
-      Executed DbCommand (2ms) [Parameters=[@__questId_0='bd218395-a365-48d4-af0e-08dd1053799d'], CommandType='Text', CommandTimeout='30']
+info: 12/12/2024 09.29.59.796 RelationalEventId.CommandExecuted[20101] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Executed DbCommand (2ms) [Parameters=[@__questId_0='eca29063-c71e-4ee9-8e78-08dd19c415a6'], CommandType='Text', CommandTimeout='30']
       SELECT [i].[Id]
       FROM [MultiPlayerDb].[Quests] AS [q]
       LEFT JOIN [MultiPlayerDb].[Items] AS [i] ON [q].[ItemToCreateId] = [i].[Id]
       WHERE [q].[Id] = @__questId_0
+
+info: 12/12/2024 09.30.09.143 RelationalEventId.CommandExecuted[20101] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Executed DbCommand (2ms) [Parameters=[@__id_0='9ce831bf-78aa-4b76-3436-08dd19c415a5'], CommandType='Text', CommandTimeout='30']
+      SELECT [w0].[Id], [w0].[Name], [r].[Id], [r].[Asset], [r].[Description], [r].[Name], [r].[Size], [r].[WorldId]
+      FROM (
+          SELECT TOP(1) [w].[Id], [w].[Name]
+          FROM [MultiPlayerDb].[Worlds] AS [w]
+          WHERE [w].[Id] = @__id_0
+      ) AS [w0]
+      LEFT JOIN [MultiPlayerDb].[Regions] AS [r] ON [w0].[Id] = [r].[WorldId]
+      ORDER BY [w0].[Id]
+
+info: 12/12/2024 09.30.09.438 RelationalEventId.CommandExecuted[20101] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Executed DbCommand (2ms) [Parameters=[@__id_0='9ce831bf-78aa-4b76-3436-08dd19c415a5'], CommandType='Text', CommandTimeout='30']
+      SELECT [r0].[Id], [r0].[Asset], [r0].[Description], [r0].[Name], [r0].[Size], [r0].[WorldId], [n].[Id], [n].[Attackable], [n].[Behavior], [n].[Class], [n].[Health], [n].[Level], [n].[Name], [n].[Position], [n].[RegionId], [n].[Texture]
+      FROM (
+          SELECT TOP(1) [r].[Id], [r].[Asset], [r].[Description], [r].[Name], [r].[Size], [r].[WorldId]
+          FROM [MultiPlayerDb].[Regions] AS [r]
+          WHERE [r].[WorldId] = @__id_0
+      ) AS [r0]
+      LEFT JOIN [MultiPlayerDb].[NPCs] AS [n] ON [r0].[Id] = [n].[RegionId]
+      ORDER BY [r0].[Id]

@@ -26,16 +26,16 @@ namespace MultiPlayerDb.Services
 					.ThenInclude(e => e.Abilities)
 				.Include(r => r.Regions)
 					.ThenInclude(r => r.NPCS)
-						.ThenInclude(a => a.Abilities)
+						.ThenInclude(a => a.Abilities).AsSplitQuery()
 				.Include(r => r.Regions)
 					.ThenInclude(h => h.NPCS)
 						.ThenInclude(q => q.Quest)
 							.ThenInclude(e => e.ItemToCreate)
-								.ThenInclude(u => u.Stats)
+								.ThenInclude(u => u.Stats).AsSplitQuery()
 				.Include(r => r.Regions)
 					.ThenInclude(h => h.NPCS)
 						.ThenInclude(q => q.Quest)
-							.ThenInclude(e => e.Reward);
+							.ThenInclude(e => e.Reward).AsSplitQuery();
 		}
 		//public static IQueryable<Region> IncludeNPCS(this IQueryable<Region> query)
 		//{

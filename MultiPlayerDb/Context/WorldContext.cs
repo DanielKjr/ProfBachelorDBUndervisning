@@ -45,6 +45,14 @@ namespace MultiPlayerDb.Context
 				_logFileInitialized = true;
 			}
 
+			//	optionsBuilder.UseSqlServer(_configuration["ConnectionStrings:DbContextServerScript"]).LogTo(
+			//message =>
+			//{
+			//	// Append log messages during runtime
+			//	File.AppendAllText("sql_log.txt", Environment.NewLine + message + Environment.NewLine);
+			//},
+			//Microsoft.Extensions.Logging.LogLevel.Information).EnableSensitiveDataLogging();
+
 			optionsBuilder.UseSqlServer(_configuration["ConnectionStrings:DbContextServer"]).LogTo(
 			message =>
 			{

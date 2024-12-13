@@ -1,6 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-
-namespace MultiPlayerDb.Context
+﻿namespace MultiPlayerDb.Context
 {
 	public static class DbContextHelper
 	{

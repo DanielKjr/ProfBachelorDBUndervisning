@@ -1,12 +1,13 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MultiPlayerDb.Model
 {
+	[Index(nameof(Name), IsUnique = true)]
 	[Table("Worlds", Schema = "MultiPlayerDb")]
 	public class World
 	{
-
 		[Key]
 		public Guid Id { get; set; }
 
@@ -18,6 +19,5 @@ namespace MultiPlayerDb.Model
 		public int WorldSize { get => Regions.Count(); }
 
 		public List<Region> Regions { get; set; } = new List<Region>();
-
 	}
 }

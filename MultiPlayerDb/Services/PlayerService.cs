@@ -6,6 +6,7 @@ using MultiPlayerDb.Services.Interfaces;
 
 namespace MultiPlayerDb.Services
 {
+	
 	public class PlayerService(IAsyncRepository<WorldContext> _asyncRepository) : IPlayerService
 	{
 		public async Task<Player> GetPlayerByName(string name)

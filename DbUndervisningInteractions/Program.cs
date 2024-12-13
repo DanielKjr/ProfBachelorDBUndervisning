@@ -11,14 +11,8 @@ string baseUrl = $"https://localhost:{apiPort}";
 HttpClient client = new HttpClient();
 
 
-async Task<Guid> GetWorldId(string worldName)
-{
-	var response = await client.GetAsync($"{baseUrl}/Guid/worldName/{worldName}");
-	var content = await response.Content.ReadAsStringAsync();
-	return Guid.Parse(content.Replace("\"", ""));
-}
 
-async Task<Guid> GetRegionId(Guid worldId)
+async Task<Guid> GetRegionIdByWorldId(Guid worldId)
 {
 	var response = await client.GetAsync($"{baseUrl}/Guid/regionId/{worldId}");
 	var content = await response.Content.ReadAsStringAsync();
@@ -42,7 +36,7 @@ async Task<Guid> GetMobAbilitiesId(Guid mobId)
 	return Guid.Parse(content);
 }
 
-async Task<List<Guid>> GetNPCsByRegion(Guid regionId)
+async Task<List<Guid>> GetNPCsByRegionId(Guid regionId)
 {
 	var response = await client.GetAsync($"{baseUrl}/Guid/npcs/{regionId}");
 	var content = await response.Content.ReadAsStringAsync();
@@ -50,14 +44,6 @@ async Task<List<Guid>> GetNPCsByRegion(Guid regionId)
 	return content.Split(',').Select(Guid.Parse).ToList();
 	
 }
-
-//async Task<Guid> GetHumanoidAbilitiesId(Guid humanoidId)
-//{
-//	var response = await client.GetAsync($"{baseUrl}/Guid/humanoidAbilities/{humanoidId}");
-//	var content = await response.Content.ReadAsStringAsync();
-//	content = content.Replace("[", "").Replace("]", "").Replace("\"", "");
-//	return Guid.Parse(content);
-//}
 
 async Task<Guid> GetHumanoidQuestId(Guid humanoidId)
 {
@@ -74,13 +60,7 @@ async Task<Guid> GetQuestRewardId(Guid questId)
 	content = content.Replace("[", "").Replace("]", "").Replace("\"", "");
 	return Guid.Parse(content);
 }
-async Task<World> GetWorldById(Guid worldId)
-{
-	var response = await client.GetAsync($"{baseUrl}/World/worldId/{worldId}");
-	var content = await response.Content.ReadAsStringAsync();
-	World world = JsonConvert.DeserializeObject<World>(content)!;
-	return world;
-}
+
 async Task<Region> GetRegiondByWorldId(Guid worldId)
 {
 	var response = await client.GetAsync($"{baseUrl}/Region/world/{worldId}");
@@ -89,37 +69,6 @@ async Task<Region> GetRegiondByWorldId(Guid worldId)
 	return region;
 }
 
-//async Task<Mob> GetMobBydId(Guid id)
-//{
-//	var response = await client.GetAsync($"{baseUrl}/Mob/byId/{id}");
-//	var content = await response.Content.ReadAsStringAsync();
-//	Mob mob = JsonConvert.DeserializeObject<Mob>(content)!;
-//	return mob;
-//}
-
-//async Task<MobAbility> GetMobAbilityBydId(Guid abilityId)
-//{
-//	var response = await client.GetAsync($"{baseUrl}/Mob/mobabilities/{abilityId}");
-//	var content = await response.Content.ReadAsStringAsync();
-//	List<MobAbility> mobabilities = JsonConvert.DeserializeObject<List<MobAbility>>(content)!;
-//	return mobabilities.First();
-//}
-
-//async Task<Humanoid> GetHumanoidBydId(Guid humanoidId)
-//{
-//	var response = await client.GetAsync($"{baseUrl}/Humanoid/humanoidById/{humanoidId}");
-//	var content = await response.Content.ReadAsStringAsync();
-//	Humanoid humanoid = JsonConvert.DeserializeObject<Humanoid>(content)!;
-//	return humanoid;
-//}
-
-//async Task<HumanoidAbility> GetHumanoidAbilityBydId(Guid humanoidId)
-//{
-//	var response = await client.GetAsync($"{baseUrl}/Humanoid/abilitiesById/{humanoidId}");
-//	var content = await response.Content.ReadAsStringAsync();
-//	HumanoidAbility humanoidAbility = JsonConvert.DeserializeObject<HumanoidAbility>(content)!;
-//	return humanoidAbility;
-//}
 
 async Task<Quest> GetQuestBydHumanoidId(Guid humanoidId)
 {
@@ -147,17 +96,32 @@ async Task<Player> GetPlayer()
 	return player;
 }
 
+async Task<World> GetWorldById(Guid worldId)
+{
+	var response = await client.GetAsync($"{baseUrl}/World/worldId/{worldId}");
+	var content = await response.Content.ReadAsStringAsync();
+	World world = JsonConvert.DeserializeObject<World>(content)!;
+	return world;
+}
+
+async Task<Guid> GetWorldIdByName(string worldName)
+{
+	var response = await client.GetAsync($"{baseUrl}/Guid/worldName/{worldName}");
+	var content = await response.Content.ReadAsStringAsync();
+	return Guid.Parse(content.Replace("\"", ""));
+}
+
+
 Console.WriteLine("Enter name of the World to search for");
-string worldName = Console.ReadLine();
-var worldId = await GetWorldId(worldName == "" ? "Kandarin" : worldName);
+string worldName = Console.ReadLine()!;
+var worldId = await GetWorldIdByName(worldName == "" ? "Kandarin" : worldName);
 Console.WriteLine("World Id=" +worldId);
-var regionId = await GetRegionId(worldId);
+var regionId = await GetRegionIdByWorldId(worldId);
 Console.WriteLine("Region Id=" +regionId);
-var humanoidId = await GetNPCsByRegion(regionId);
+var humanoidId = await GetNPCsByRegionId(regionId);
+
 humanoidId.ForEach(i => Console.WriteLine("NPC Id=" + i));
 
-//var humanoidAbilitiesId = await GetHumanoidAbilitiesId(humanoidId);
-//Console.WriteLine("Humanoid Ability Id=" + humanoidAbilitiesId + "(npcen har ikke nogen men kaldet virker)");
 
 Guid questId = Guid.Empty;
 try
@@ -177,12 +141,7 @@ catch (Exception)
 Console.WriteLine("Quest Id=" + questId);
 var questRewardId = await GetQuestRewardId(questId);
 Console.WriteLine("Quest Reward Id=" + questRewardId);
-//var mobId = await GetMobId(regionId);
-//Console.WriteLine("Mob Id="+mobId);
 
-
-//var mobAbilitiesId = await GetMobAbilitiesId(mobId);
-//Console.WriteLine("MobAbility Id="+mobAbilitiesId);
 Console.WriteLine("Hit enter to get objects from these ids)");
 Console.ReadLine();
 
@@ -190,16 +149,6 @@ var world = await GetWorldById(worldId);
 Console.WriteLine("World: " + JsonConvert.SerializeObject(world) +"\n");
 var region = await GetRegiondByWorldId(worldId);
 Console.WriteLine("Region: " + JsonConvert.SerializeObject(region) + "\n");
-//var humanoid = await GetHumanoidBydId(humanoidId);
-//Console.WriteLine("Humanoid: " + JsonConvert.SerializeObject(humanoid) + "\n");
-//var humanoidAbility = await GetHumanoidAbilityBydId(humanoidAbilitiesId);
-//Console.WriteLine("Humanoid Ability: " + JsonConvert.SerializeObject(humanoidAbility) + "\n");
-//var quest = await GetQuestBydHumanoidId(humanoidId);
-//Console.WriteLine("Quest: " + JsonConvert.SerializeObject(quest) + "\n");
-//var mob = await GetMobBydId(mobId);
-//Console.WriteLine("Mob: " + JsonConvert.SerializeObject(mob) + "\n");
-//var mobAbilities = await GetMobAbilityBydId(mobAbilitiesId);
-//Console.WriteLine("Mob Abilities: " + JsonConvert.SerializeObject(mobAbilities) + "\n");
 
 Console.WriteLine("Hit enter to execute get all from world in single query");
 Console.ReadLine();

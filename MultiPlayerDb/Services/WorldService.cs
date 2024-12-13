@@ -11,6 +11,8 @@ using MultiPlayerDb.Services.Interfaces;
 
 namespace MultiPlayerDb.Services
 {
+
+	
 	public class WorldService(IAsyncRepository<WorldContext> _asyncRepository) : IWorldService
 	{
 		
@@ -20,9 +22,6 @@ namespace MultiPlayerDb.Services
 		{
 			return await _asyncRepository.GetItem<World>(q => q.Where(x => x.Name == "Kandarin").IncludeAll());
 			
-			//.Include(r => r.Regions).ThenInclude(e => e.Mobs).ThenInclude(e => e.Abilities).Include(r => r.Regions).ThenInclude(r => r.Humanoids).ThenInclude(a => a.Abilities)
-			//.Include(r => r.Regions).ThenInclude(h => h.Humanoids).ThenInclude(q => q.Quest).ThenInclude(e => e.ItemToCreate)
-			//.Include(r => r.Regions).ThenInclude(h => h.Humanoids).ThenInclude(q => q.Quest).ThenInclude(e => e.Reward));
 		}
 
 		public async Task<World> GetWorldById(Guid id)
@@ -91,6 +90,7 @@ namespace MultiPlayerDb.Services
 
 		public async void CreateStuff()
 		{
+			var random = new Random();
 			var player = new Player() { Name ="Rolf", HashedPw = "Rolferten" };
 			var character = new Character() { Level = 1, Name = "Ged", Class = ClassType.Thief, Position = "300,200", Currency = 5};
 			character.Abilities.Add(new Ability() { ClassConstraint = ClassType.Thief, Damage = -10, Description = "You lie down and cry in the corner", Name = "Cry" });
@@ -129,8 +129,83 @@ namespace MultiPlayerDb.Services
 			mob.Abilities.Add(new Ability() { ClassConstraint = ClassType.Mob, Damage = 10, Description = "Deer kick", Name = "Kick" });
 			region.NPCS.Add(mob);
 
-			world.Regions.Add(region);
+			// Generate random NPCs with quests and abilities
+			for (int i = 0; i < 30; i++) // Adjust the number of NPCs as needed
+			{
+				var npcName = $"NPC_{i}";
+				var behavior = (BehaviorType)random.Next(Enum.GetValues(typeof(BehaviorType)).Length);
+				var npcClass = behavior == BehaviorType.QuestNPC ? "Warrior" : "Mob";
+				var npcLevel = random.Next(1, 101);
+				var npcHealth = random.Next(50, 501);
 
+				// Create a random quest for quest NPCs
+				quest = null;
+				if (behavior == BehaviorType.QuestNPC)
+				{
+					quest = new Quest()
+					{
+						Dialogue = $"Quest dialogue for {npcName}",
+						Objective = $"Complete objective {i}",
+						Title = $"Quest {i}",
+						ItemToCreate = new Item()
+						{
+							Description = $"A random item {i}",
+							Name = $"Item_{i}",
+							Rarity = (RarityLevel)random.Next(1, 4)
+						},
+						Reward = new Reward()
+						{
+							Currency = random.Next(50, 301),
+							Experience = random.Next(10, 51)
+						}
+					};
+
+					quest.ItemToCreate.Stats.Add(new Stat()
+					{
+						Boost = random.Next(1, 101),
+						StatType = (StatType)random.Next(Enum.GetValues(typeof(StatType)).Length),
+						Name = $"Stat_{i}"
+					});
+				}
+
+				// Generate random abilities for the NPC
+				var abilities = new List<Ability>();
+				int numAbilities = random.Next(1, 4);
+				for (int j = 0; j < numAbilities; j++)
+				{
+					abilities.Add(new Ability()
+					{
+						ClassConstraint = npcClass == "Mob" ? ClassType.Mob : (ClassType)random.Next(0, 4),
+						Damage = random.Next(5, 51),
+						Description = $"Ability description {j} for {npcName}",
+						Name = $"Ability_{j}"
+					});
+				}
+
+				// Create the NPC
+				var npc = new NPC()
+				{
+					Name = npcName,
+					Attackable = behavior != BehaviorType.QuestNPC,
+					Abilities = abilities,
+					Behavior = behavior,
+					Class = npcClass,
+					Health = npcHealth,
+					Level = npcLevel,
+					Position = $"{random.Next(1, 101)},{random.Next(1, 101)}",
+					Texture = $"Texture_{i}",
+					Quest = quest
+				};
+
+				region.NPCS.Add(npc);
+			}
+			world.Regions.Add(region);
+			var worlds = new List<World>();
+			for (int i = 0; i < 50; i++)
+			{
+				worlds.Add(new World() { Name = $"Something +{i}" });
+			}
+			await _asyncRepository.AddItems(worlds);
 			await _asyncRepository.AddItem(player);
 			await _asyncRepository.AddItem(world);
 		}

@@ -3,6 +3,7 @@ using MultiPlayerDb.Context;
 using MultiPlayerDb.Services;
 using MultiPlayerDb.Services.Interfaces;
 
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -16,7 +17,6 @@ builder.Services.AddTransient<IWorldService, WorldService>();
 builder.Services.AddTransient<IGuidService, GuidService>();
 builder.Services.AddTransient<IRegionService, RegionService>();
 builder.Services.AddTransient<IHumanoidService, HumanoidService>();
-builder.Services.AddTransient<IMobService, MobService>();
 builder.Services.AddTransient<IPlayerService, PlayerService>();
 
 builder.Services.AddDbContextFactory<WorldContext>();

@@ -4,6 +4,7 @@ using MultiPlayerDb.Services.Interfaces;
 
 namespace MultiPlayerDb.Services
 {
+	
 	public class QueryService(IAsyncRepository<WorldContext> _asyncRepository) : IQueryService
 	{
 
