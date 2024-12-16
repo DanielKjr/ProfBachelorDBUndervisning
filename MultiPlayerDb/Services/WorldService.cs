@@ -31,9 +31,6 @@ namespace MultiPlayerDb.Services
 
 		public async Task<World> GetWorldByName(string name)
 		{
-			
-			//var t = DbContextHelper.GetContext(name);
-			//var context = (DbContext)Activator.CreateInstance(t);
 			return await _asyncRepository.GetItem<World>(q => q.Where(x => x.Name == name));
 		}
 
@@ -42,12 +39,11 @@ namespace MultiPlayerDb.Services
 		public async void DeleteAll()
 		{
 #pragma warning disable CS8073 // The result of the expression is always the same since a value of this type is never equal to 'null'
-			//await _asyncRepository.RemoveItems<HumanoidAbility>(q => q.Where(q => q.Id != null));
+		
 			await _asyncRepository.RemoveItems<Ability>(q => q.Where(q => q.Id != null));
 			await _asyncRepository.RemoveItems<NPC>(q => q.Where(q => q.Id != null));
 			await _asyncRepository.RemoveItems<Region>(q => q.Where(q => q.Id != null));
 			await _asyncRepository.RemoveItems<Quest>(q=> q.Where(q => q.Id != null));
-			//await _asyncRepository.RemoveItems<Humanoid>(q=> q.Where(q => q.Id != null));
 			await _asyncRepository.RemoveItems<Item>(q => q.Where(q => q.Id != null));
 			await _asyncRepository.RemoveItems<World>(q => q.Where(q => q.Id != null));
 			await _asyncRepository.RemoveItems<Character>(q => q.Where(q => q.Id != null));
@@ -59,12 +55,6 @@ namespace MultiPlayerDb.Services
 	
 
 	
-
-		//public async Task<string> GetQuery()
-		//{
-		//	return await _asyncRepository.GetQueryString<Region>(q => q.Where(x => x.Id == Guid.Parse("035A3DCE-226A-45DC-9110-08DD0A142C24")).Include(i => i.Mobs).ThenInclude(a => a.Abilities));
-		//}
-
 		public async Task<string> GetQuery<TEntity>(Func<IQueryable<TEntity>, IQueryable<TEntity>> queryOperation) where TEntity : class
 		{
 			return await _asyncRepository.GetQueryString(queryOperation);
@@ -77,17 +67,10 @@ namespace MultiPlayerDb.Services
 			return queryStrings;
 		}
 
-		public async Task<string> GetQuery<TEntity>(
-	Func<Func<IQueryable<TEntity>, IQueryable<TEntity>>> queryGenerator
-) where TEntity : class
-		{
-			// Dynamically execute the query generator to get the query operation
-			var queryOperation = queryGenerator();
 
-			// Pass the generated query operation to the repository and return the query string
-			return await _asyncRepository.GetQueryString(queryOperation);
-		}
-
+		/// <summary>
+		/// Clusterfuck af kode der genererer en masse entiteter og gemmer dem for at teste
+		/// </summary>
 		public async void CreateStuff()
 		{
 			var random = new Random();
@@ -129,8 +112,8 @@ namespace MultiPlayerDb.Services
 			mob.Abilities.Add(new Ability() { ClassConstraint = ClassType.Mob, Damage = 10, Description = "Deer kick", Name = "Kick" });
 			region.NPCS.Add(mob);
 
-			// Generate random NPCs with quests and abilities
-			for (int i = 0; i < 30; i++) // Adjust the number of NPCs as needed
+			
+			for (int i = 0; i < 30; i++) 
 			{
 				var npcName = $"NPC_{i}";
 				var behavior = (BehaviorType)random.Next(Enum.GetValues(typeof(BehaviorType)).Length);
@@ -138,7 +121,7 @@ namespace MultiPlayerDb.Services
 				var npcLevel = random.Next(1, 101);
 				var npcHealth = random.Next(50, 501);
 
-				// Create a random quest for quest NPCs
+		
 				quest = null;
 				if (behavior == BehaviorType.QuestNPC)
 				{
@@ -168,7 +151,7 @@ namespace MultiPlayerDb.Services
 					});
 				}
 
-				// Generate random abilities for the NPC
+			
 				var abilities = new List<Ability>();
 				int numAbilities = random.Next(1, 4);
 				for (int j = 0; j < numAbilities; j++)

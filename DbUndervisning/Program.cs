@@ -19,7 +19,7 @@ builder.Services.AddTransient<IWorldService,WorldService>();
 builder.Services.AddTransient<IGuidService, GuidService>();
 builder.Services.AddTransient<IRegionService, RegionService>();
 builder.Services.AddTransient<IHumanoidService, HumanoidService>();
-builder.Services.AddTransient<IMobService, MobService>();
+
 builder.Services.AddTransient<IPlayerService, PlayerService>();
 
 //var datasourcebuilder = new NpgsqlDataSourceBuilder(builder.Configuration.GetConnectionString("DefaultConnection"));

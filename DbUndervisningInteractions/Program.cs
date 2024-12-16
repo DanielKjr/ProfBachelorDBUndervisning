@@ -19,7 +19,7 @@ async Task<Guid> GetRegionIdByWorldId(Guid worldId)
 	content = content.Replace("[", "").Replace("]", "").Replace("\"", "");
 	return Guid.Parse(content);
 }
-
+#region UnusedStuff
 async Task<Guid> GetMobId(Guid regionId)
 {
 	var response = await client.GetAsync($"{baseUrl}/Guid/mobId/{regionId}");
@@ -36,6 +36,14 @@ async Task<Guid> GetMobAbilitiesId(Guid mobId)
 	return Guid.Parse(content);
 }
 
+async Task<Quest> GetQuestBydHumanoidId(Guid humanoidId)
+{
+	var response = await client.GetAsync($"{baseUrl}/Humanoid/questById/{humanoidId}");
+	var content = await response.Content.ReadAsStringAsync();
+	List<Quest> quests = JsonConvert.DeserializeObject<List<Quest>>(content)!;
+	return quests.First();
+}
+#endregion
 async Task<List<Guid>> GetNPCsByRegionId(Guid regionId)
 {
 	var response = await client.GetAsync($"{baseUrl}/Guid/npcs/{regionId}");
@@ -70,13 +78,6 @@ async Task<Region> GetRegiondByWorldId(Guid worldId)
 }
 
 
-async Task<Quest> GetQuestBydHumanoidId(Guid humanoidId)
-{
-	var response = await client.GetAsync($"{baseUrl}/Humanoid/questById/{humanoidId}");
-	var content = await response.Content.ReadAsStringAsync();
-	List<Quest> quests = JsonConvert.DeserializeObject<List<Quest>>(content)!;
-	return quests.First();
-}
 
 
 

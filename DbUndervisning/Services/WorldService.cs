@@ -22,9 +22,6 @@ namespace DbUndervisning.Services
 		{
 			return await _asyncRepository.GetItem<World>(q => q.Where(x => x.Name == "Kandarin").IncludeAll());
 			
-			//.Include(r => r.Regions).ThenInclude(e => e.Mobs).ThenInclude(e => e.Abilities).Include(r => r.Regions).ThenInclude(r => r.Humanoids).ThenInclude(a => a.Abilities)
-			//.Include(r => r.Regions).ThenInclude(h => h.Humanoids).ThenInclude(q => q.Quest).ThenInclude(e => e.ItemToCreate)
-			//.Include(r => r.Regions).ThenInclude(h => h.Humanoids).ThenInclude(q => q.Quest).ThenInclude(e => e.Reward));
 		}
 
 		public async Task<World> GetWorldById(Guid id)

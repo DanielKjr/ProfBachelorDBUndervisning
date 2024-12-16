@@ -52,16 +52,6 @@ namespace MultiPlayerDb.Controllers
 			return await Task.FromResult(await _worldService.GetQuery<World>(q=> q.Where(i=> i.Id == world.Id).IncludeAll()));
 		}
 
-		[HttpGet("getqueries")]
-		public async Task<List<string>> GetQueries()
-		{
-			var s = new List<Func<IQueryable<World>, IQueryable<World>>>();
-
-			s.Add(q => q.Where(i => i.Id != null).IncludeAll());
-			s.Add(q => q.Where(i => i.Id != null).IncludeAll());
-
-			return await Task.FromResult(await _worldService.GetQueries(s));
-		}
 
 		[HttpPost("create")]	
 		public void CreateStuff()
